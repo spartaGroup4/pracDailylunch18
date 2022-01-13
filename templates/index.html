@@ -5,6 +5,7 @@
 
     <title>매일점심</title>
 
+    <!-- meta ogtitle -->
     <meta property="og:title" content="매일점심" />
     <meta property="og:description" content="점심 뭐먹지?" />
     <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}" />
@@ -50,12 +51,10 @@
         }
 
 
-        {# 간편식 show // hide   #}
-        {#function fastFood() {#}
-        {#$("#fastFood").toggle(); // show -> hide , hide -> show#}
-
-
-
+        // 간단한 토글로 보이기 / 숨기기 기능
+        // show // hide
+        // function fastFood() {#}
+        // $("#fastFood").toggle(); // show -> hide , hide -> show
 
 
         function logout() {
@@ -65,108 +64,109 @@
         }
 
 
-        {# 모달 + 코멘트 기능 미구현.
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        })
-
-        $(document).ready(function() {
-            showComments();
-        });
-
-        function saveComment() {
-            let nick = $("#post-nick").val()
-            let comment = $("#post-comment").val()
-            // 화면에 입력된 데이터를 jquery로 가지고 온다
-
-            if (nick == "" || comment == "") {
-                alert("닉네임과 댓글 내용을 입력해주세요.")
-            } else {
-                // post/ review에 저장(create)을 요청합니다.
-                $.ajax({
-                    type: "POST",
-                    url: "/api/comments",
-                    data: { nick_give: nick, comment_give: comment},
-                    success: function (response) {
-                        alert(response["msg"]);
-                        $('#comment-box').empty()
-                        showComments();
-                    }
-                })
-            }
-        }
-
-        function showComments() {
-            $.ajax({
-                    type: "GET",
-                    url: "/api/comments",
-                    data: {},
-                    success: function (response) {
-                        let lunches = response['all_lunches']
-
-                        for (let i = 0; i < lunches.length; i++) {
-                            let nick = lunches[i]['nick']
-                            let comment = lunches[i]['comment']
-
-
-                            let temp_html = `
-                                            <tr>
-                                                <td>${nick}</td>
-                                                <td>${comment}</td>
-                                                <td><a href="#" onclick="deleteComment('${comment}')">삭제</a></td>
-                                            </tr>
-                                            `
-                            $('#comment-box').append(temp_html)
-
-                        }
-
-                    }
-                })
-        }
-
-        function deleteComment(comment) {
-            $.ajax({
-                type: 'POST',
-                url: '/api/comment_delete',
-                data: {comment_give: comment},
-                success: function (response) {
-                    alert(response['msg']);
-                    $('#comment-box').empty()
-                    showComments();
-                }
-            });
-        }
-
-        function tests() {
-            $.ajax({
-                    type: "GET",
-                    url: "/api/comments",
-                    data: {},
-                    success: function (response) {
-                        let lunches = response['all_lunches']
-
-                        for (let i = 0; i < lunches.length; i++) {
-                            let nick = lunches[i]['nick']
-                            let comment = lunches[i]['comment']
-
-
-                            let temp_html = `
-                                            <tr>
-                                                <td>${nick}</td>
-                                                <td>${comment}</td>
-                                                <td><a href="#" onclick="deleteComment('${comment}')">삭제</a></td>
-                                            </tr>
-                                            `
-                            $('#comment-box').append(temp_html)
-
-                        }
-
-                    }
-                })
-        } #}
+        // 모달 + 코멘트 기능 미구현.
+        // $('#myModal').on('shown.bs.modal', function () {
+        //     $('#myInput').trigger('focus')
+        // })
+        //
+        // $(document).ready(function() {
+        //     showComments();
+        // });
+        //
+        // function saveComment() {
+        //     let nick = $("#post-nick").val()
+        //     let comment = $("#post-comment").val()
+        //     // 화면에 입력된 데이터를 jquery로 가지고 온다
+        //
+        //     if (nick == "" || comment == "") {
+        //         alert("닉네임과 댓글 내용을 입력해주세요.")
+        //     } else {
+        //         // post/ review에 저장(create)을 요청합니다.
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "/api/comments",
+        //             data: { nick_give: nick, comment_give: comment},
+        //             success: function (response) {
+        //                 alert(response["msg"]);
+        //                 $('#comment-box').empty()
+        //                 showComments();
+        //             }
+        //         })
+        //     }
+        // }
+        //
+        // function showComments() {
+        //     $.ajax({
+        //             type: "GET",
+        //             url: "/api/comments",
+        //             data: {},
+        //             success: function (response) {
+        //                 let lunches = response['all_lunches']
+        //
+        //                 for (let i = 0; i < lunches.length; i++) {
+        //                     let nick = lunches[i]['nick']
+        //                     let comment = lunches[i]['comment']
+        //
+        //
+        //                     let temp_html = `
+        //                                     <tr>
+        //                                         <td>${nick}</td>
+        //                                         <td>${comment}</td>
+        //                                         <td><a href="#" onclick="deleteComment('${comment}')">삭제</a></td>
+        //                                     </tr>
+        //                                     `
+        //                     $('#comment-box').append(temp_html)
+        //
+        //                 }
+        //
+        //             }
+        //         })
+        // }
+        //
+        // function deleteComment(comment) {
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/api/comment_delete',
+        //         data: {comment_give: comment},
+        //         success: function (response) {
+        //             alert(response['msg']);
+        //             $('#comment-box').empty()
+        //             showComments();
+        //         }
+        //     });
+        // }
+        //
+        // function tests() {
+        //     $.ajax({
+        //             type: "GET",
+        //             url: "/api/comments",
+        //             data: {},
+        //             success: function (response) {
+        //                 let lunches = response['all_lunches']
+        //
+        //                 for (let i = 0; i < lunches.length; i++) {
+        //                     let nick = lunches[i]['nick']
+        //                     let comment = lunches[i]['comment']
+        //
+        //
+        //                     let temp_html = `
+        //                                     <tr>
+        //                                         <td>${nick}</td>
+        //                                         <td>${comment}</td>
+        //                                         <td><a href="#" onclick="deleteComment('${comment}')">삭제</a></td>
+        //                                     </tr>
+        //                                     `
+        //                     $('#comment-box').append(temp_html)
+        //
+        //                 }
+        //
+        //             }
+        //         })
+        // }
     </script>
 </head>
 <body>
+
 <!--header-->
 <div class="home_wrap">
     <div class="header">
@@ -181,6 +181,8 @@
     </div>
 
     <!--mainImage-->
+
+<!-- 부트 스트랩 슬라이드 효과   -->
     <div class="mainImage">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
@@ -205,8 +207,9 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
-
         </div>
+
+<!--  bigText     -->
         <div class="bigText" >
             <span style="font-family: 'Black Han Sans', sans-serif;">매일점심</span>
         </div>
@@ -218,6 +221,7 @@
 
     {#       카드 입력받아 보여주기 for in#}
     <div class="card_wrap">
+{#        진자를 이용한 for in 반복문 돌리기#}
         {% for details2 in details %}
             {#{% set title = details2["title"]  %}
             셋으로 세팅할 경우  {{ title }} 방법으로 데이터 전달#}
@@ -241,6 +245,19 @@
             </div>
         {% endfor %}
     </div>
+
+{# id정보를 불러와서 보여주기#}
+{# user_info.username으로 id값을 불러줘서 보여주기#}
+{# 메뉴 추천하러 가기 버튼에 로케이션 href를 달아 detail페이로 들어가기#}
+<div class="floating">
+        <div class="header_id">
+            <p class="floating_id_user">{{ user_info.username }}님, 맛점하세요!</p>
+            <button onclick="location.href= '/detail';" class="textGoing">메뉴 추천하러 가기&nbsp;<i class="far fa-hand-point-right"></i></button>
+        </div>
+    </div>
+
+
+
     <!-- Modal -->
 {#    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"#}
 {#         aria-hidden="true">#}
@@ -287,12 +304,7 @@
 {#            </div>#}
 {#        </div>#}
 {#    </div>#}
-    <div class="floating">
-        <div class="header_id">
-            <p class="floating_id_user">{{ user_info.username }}님, 맛점하세요!</p>
-            <button onclick="location.href= '/detail';" class="textGoing">메뉴 추천하러 가기&nbsp;<i class="far fa-hand-point-right"></i></button>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>
