@@ -24,10 +24,12 @@ def detail():
 
 @app.route('/detail', methods=['POST'])
 def write_detail():
+
     # 아이디 가져오기
     token_receive = request.cookies.get('mytoken')
     payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
     user_info = db.users.find_one({"username": payload["id"]})
+
 
     # title_receive로 클라이언트가 준 title 가져오기
     title_receive = request.form['title_give']
@@ -35,17 +37,27 @@ def write_detail():
     content_receive = request.form['content_give']
     # category_receive로 클라이언트가 준 category 가져오기
     category_receive = request.form['category_give']
+
+    # url 받을 준비
     # url-receive로 클라이언트가 준 url 가져오기.
     url_receive = request.form['url_give']
+
+    # like를 받을 준비
     # like-receive로 클라이언트가 준 like 가져오기.
     like_receive = request.form['like_give']
 
-    # DB에 삽입할 detail 만들기
+    # 딕셔너리를 만들고 db에 넣어 나중에 불러올 수 있도록함
+    # DB에 삽입할 딕셔너리 만들기
     doc = {
+        # 유저의 id값을 db에 넣음
         'username': user_info["username"],
+
+        # 카드에 들어갈 정보 딕셔너리
         'title': title_receive,
         'content': content_receive,
         'category': category_receive,
+
+
         'url': url_receive,
 
         'like': like_receive
@@ -66,6 +78,10 @@ def home():
         details = list(db.dbsparta.find({}, {'_id': False}))
         # 2. 성공 여부 & detail 목록 반환하기
 
+
+        # db.dbsparta에서 가져온 데이터 활용 할 수 있게 details = details로 받아 넘겨주기)
+
+        # 넘겨준 details 변수로 html(index.html에서 사용가능)
         return render_template('index.html', details=details, user_info=user_info)
         # render_template를 통하여 index.html 에서 db 데이터 가져오기
     except jwt.ExpiredSignatureError:
